@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layers, Disc, Filter, ArrowRight, Info, Eye, CheckCircle2 } from 'lucide-react';
+import { Layers, Disc, Filter, ArrowRight, Info, Eye, CheckCircle2, Camera } from 'lucide-react';
 import { VERIFIED_MACHINES } from '../data/companyData';
 import { MachineInfo, MachineCategory } from '../types';
 import { MachineDetailModal } from './MachineDetailModal';
@@ -115,6 +115,28 @@ export const MachineryCatalogue: React.FC<MachineryCatalogueProps> = ({ onEnquir
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-gold/20 border border-gold/40 text-gold-light text-xs font-mono font-bold relative z-10">
                     <span className="text-[9px] uppercase tracking-wider opacity-80">Brochure Spec:</span>
                     <span>{machine.brochureSpec}</span>
+                  </div>
+                </div>
+
+                {/* Machine Image Placeholder — replace src with actual machine photo path e.g. /images/machines/cosen-320.jpg */}
+                <div className="relative w-full h-44 bg-gray-100 border-b border-border-light overflow-hidden flex flex-col items-center justify-center gap-2 group-hover:bg-gray-50 transition-colors">
+                  <img
+                    src={`/images/machines/${machine.id}.jpg`}
+                    alt={`${machine.name} – Rainbow Metal Cutting`}
+                    className="absolute inset-0 w-full h-full object-cover object-center opacity-0 transition-opacity duration-300"
+                    onLoad={(e) => { (e.target as HTMLImageElement).style.opacity = '1'; }}
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                  {/* Placeholder shown until image is placed */}
+                  <div className="relative z-10 flex flex-col items-center gap-2 pointer-events-none select-none">
+                    <div className="w-14 h-14 rounded-full bg-surface-warm border-2 border-dashed border-border-light flex items-center justify-center">
+                      <Camera className="w-6 h-6 text-text-muted" />
+                    </div>
+                    <p className="text-[11px] text-text-muted font-medium text-center px-4 leading-tight">
+                      Machine Photo<br/>
+                      <span className="text-[10px] font-mono text-gold-dark">{machine.name}</span>
+                    </p>
+                    <span className="text-[9px] text-text-muted/60 font-mono">/images/machines/{machine.id}.jpg</span>
                   </div>
                 </div>
 

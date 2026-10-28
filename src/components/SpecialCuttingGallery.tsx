@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scissors, ArrowRight, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { Scissors, ArrowRight, CheckCircle2, ShieldAlert, Camera } from 'lucide-react';
 import { SPECIAL_CUTTING_GALLERY } from '../data/companyData';
 
 interface SpecialCuttingGalleryProps {
@@ -33,9 +33,18 @@ export const SpecialCuttingGallery: React.FC<SpecialCuttingGalleryProps> = ({
               key={item.id}
               className="flex flex-col bg-surface-warm rounded-2xl border border-border-light hover:border-gold/60 hover:shadow-card-elevated transition-all duration-200 overflow-hidden group"
             >
-              {/* Profile Graphical Representation Header */}
-              <div className="relative h-44 bg-[#17191C] text-white p-5 flex flex-col justify-between overflow-hidden">
-                {/* Background subtle grid */}
+              {/* Cutting Work Image Placeholder — replace src with actual photo path e.g. /images/cutting/solid-billets.jpg */}
+              <div className="relative h-44 bg-[#17191C] text-white overflow-hidden flex flex-col">
+                {/* Real image — becomes visible once file is placed at the path */}
+                <img
+                  src={`/images/cutting/${item.id}.jpg`}
+                  alt={`${item.title} – Special Cutting Works`}
+                  className="absolute inset-0 w-full h-full object-cover object-center opacity-0 transition-opacity duration-300"
+                  onLoad={(e) => { (e.target as HTMLImageElement).style.opacity = '1'; }}
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                />
+
+                {/* Background subtle grid (visible as placeholder background) */}
                 <div
                   className="absolute inset-0 opacity-15"
                   style={{
@@ -45,7 +54,7 @@ export const SpecialCuttingGallery: React.FC<SpecialCuttingGalleryProps> = ({
                 />
 
                 {/* Top tag */}
-                <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center justify-between relative z-10 p-4">
                   <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-charcoal-card text-gold-light border border-charcoal-light">
                     {item.tag}
                   </span>
@@ -54,55 +63,20 @@ export const SpecialCuttingGallery: React.FC<SpecialCuttingGalleryProps> = ({
                   </span>
                 </div>
 
-                {/* Industrial SVG Cross-Section Illustration */}
-                <div className="relative z-10 flex items-center justify-center py-2">
-                  <svg className="w-20 h-20 drop-shadow-md" viewBox="0 0 64 64" fill="none">
-                    <circle cx="32" cy="32" r="30" stroke="#383E45" strokeWidth="1" strokeDasharray="3 2" />
-
-                    {/* Differentiated shapes per profile */}
-                    {item.id === 'solid-billets' && (
-                      <circle cx="32" cy="32" r="22" fill="#292E33" stroke="#C9A227" strokeWidth="2.5" />
-                    )}
-                    {item.id === 'thick-wall-tubing' && (
-                      <>
-                        <circle cx="32" cy="32" r="22" fill="#292E33" stroke="#C9A227" strokeWidth="2.5" />
-                        <circle cx="32" cy="32" r="13" fill="#17191C" stroke="#E6D28A" strokeWidth="1.5" />
-                      </>
-                    )}
-                    {item.id === 'square-billets' && (
-                      <rect x="14" y="14" width="36" height="36" rx="3" fill="#292E33" stroke="#C9A227" strokeWidth="2.5" />
-                    )}
-                    {item.id === 'structural-profiles' && (
-                      <path
-                        d="M16 16 H48 V24 H26 V40 H48 V48 H16 Z"
-                        fill="#292E33"
-                        stroke="#C9A227"
-                        strokeWidth="2"
-                      />
-                    )}
-                    {item.id === 'short-length-spacers' && (
-                      <>
-                        <rect x="12" y="24" width="40" height="16" rx="2" fill="#292E33" stroke="#C9A227" strokeWidth="2" />
-                        <line x1="24" y1="20" x2="24" y2="44" stroke="#E6D28A" strokeWidth="1.5" strokeDasharray="2 2" />
-                        <line x1="36" y1="20" x2="36" y2="44" stroke="#E6D28A" strokeWidth="1.5" strokeDasharray="2 2" />
-                      </>
-                    )}
-                    {item.id === 'custom-drawings' && (
-                      <polygon
-                        points="18,48 18,24 34,16 48,26 48,48"
-                        fill="#292E33"
-                        stroke="#C9A227"
-                        strokeWidth="2.5"
-                      />
-                    )}
-
-                    {/* Precision cut axis line */}
-                    <line x1="32" y1="2" x2="32" y2="62" stroke="#E6D28A" strokeWidth="1.2" strokeDasharray="2 2" strokeOpacity="0.7" />
-                  </svg>
+                {/* Placeholder content — centered camera icon + label */}
+                <div className="flex-1 flex flex-col items-center justify-center gap-2 relative z-10 pb-4">
+                  <div className="w-14 h-14 rounded-full bg-charcoal-card border-2 border-dashed border-charcoal-light flex items-center justify-center">
+                    <Camera className="w-6 h-6 text-text-muted" />
+                  </div>
+                  <p className="text-[11px] text-gray-400 font-medium text-center px-4 leading-tight">
+                    Cutting Work Photo<br/>
+                    <span className="text-[10px] font-mono text-gold">{item.title}</span>
+                  </p>
+                  <span className="text-[9px] text-gray-600 font-mono">/images/cutting/{item.id}.jpg</span>
                 </div>
 
                 {/* Profile category label */}
-                <div className="relative z-10 flex items-center justify-between text-[11px] font-mono text-gray-300">
+                <div className="relative z-10 flex items-center justify-between text-[11px] font-mono text-gray-300 px-4 pb-3">
                   <span>Profile Form</span>
                   <span className="text-gold font-bold">{item.profileType}</span>
                 </div>
